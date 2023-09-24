@@ -1,14 +1,13 @@
 'use strict';
 
 function getComputerChoice() {
-    let options = ['Rock', 'Paper', 'Scissors'];
+    let options = ['rock', 'paper', 'scissors'];
     let choice = options[Math.floor(Math.random() * options.length)];
     return choice;
 };
 
 function playRound(playerSelection, computerSelection) {
     playerSelection = playerSelection.toLowerCase();
-    computerSelection = computerSelection.toLowerCase();
 
     switch(playerSelection){
         case 'rock':
@@ -19,7 +18,6 @@ function playRound(playerSelection, computerSelection) {
             } else {
                 return 'you win! rock beats scissors!';
             }
-            break;
         case 'paper':
             if (computerSelection === 'rock'){
                 return 'you win! paper beats rock!';
@@ -28,7 +26,6 @@ function playRound(playerSelection, computerSelection) {
             } else {
                 return 'you lose.. scissors beats paper..';
             }
-            break;
         case 'scissors':
             if (computerSelection === 'rock'){
                 return 'you lose.. rock beats scissors..';
@@ -37,10 +34,17 @@ function playRound(playerSelection, computerSelection) {
             } else {
                 return 'its a draw (both chose scissors)';
             }
-            break;
+        default:
+            return 'You Misspelled Your Choice..';
     };
 };
 
-let playerSelection = 'rock';
-let choice = getComputerChoice();
-console.log(playRound(playerSelection, choice));
+function game() {
+    for (let i = 0; i < 5; i++){
+        let computerChoice = getComputerChoice();
+        let playerChoice = prompt('Choose: Rock, Paper, or Scissors..');
+        console.log(playRound(playerChoice, computerChoice));
+    };
+}
+
+game();
