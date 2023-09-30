@@ -3,3 +3,74 @@
     padding: 0;
     box-sizing: border-box;
 }
+
+body {
+    background-color: lightblue;
+}
+
+.title {
+    margin-top: 10px;
+    font-size: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.win-condition {
+    margin: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.score-container {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    justify-content: center;
+}
+.score-container p {
+    margin-top: 10px;
+    font-size: 2.5rem;
+    display: inline-block;
+}
+
+.btn-container {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    justify-content: center;
+}
+.btn-container button {
+    margin-bottom: 20px;
+    background-color: white;
+    border: 3px solid black;
+    border-radius: 10px;
+    padding: 15px;
+    font-size: 100px;
+}
+.reset {
+    display: none;
+}
+.btn-container button:hover {
+    background-color: lightcyan;
+    text-shadow:
+               0 6px 1px rgba(0,0,0,.1),
+               0 0 5px rgba(0,0,0,.1),
+               0 1px 3px rgba(0,0,0,.3),
+               0 3px 5px rgba(0,0,0,.2),
+               0 5px 10px rgba(0,0,0,.25),
+               0 10px 10px rgba(0,0,0,.2),
+               0 20px 20px rgba(0,0,0,.15);
+}
+.btn-container button:active {
+    background-color: rgb(168, 202, 202);
+}
+
+.status {
+    font-size: 1.2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
