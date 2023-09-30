@@ -1,72 +1,101 @@
 'use strict';
 
+const playerOptions = document.querySelectorAll('.playerOption');
+const wins = document.getElementById('wins');
+const draws = document.getElementById('draws');
+const losses = document.getElementById('losses');
+const resetBtn = document.querySelector('.reset');
+const computerMove = document.querySelector('.computer-move');
+const gameState = document.querySelector('.game-state');
+
 function getComputerChoice() {
     let options = ['rock', 'paper', 'scissors'];
     let choice = options[Math.floor(Math.random() * options.length)];
     return choice;
 };
 
+playerOptions.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+        let playerChoice = e.target.id;
+        playRound(playerChoice, getComputerChoice());
+    });
+});
+
 function playRound(playerSelection, computerSelection) {
-    playerSelection = playerSelection.toLowerCase();
 
     switch(playerSelection){
         case 'rock':
             if (computerSelection === 'rock'){
-                return 'its a draw';
+                displayState('Drew', 'Rock');
             } else if (computerSelection === 'paper') {
-                return 'you lose..';
+                displayState('Lost', 'Paper');
             } else {
-                return 'you win!';
+                displayState('Won', 'Scissors');
             };
+            break;
         case 'paper':
             if (computerSelection === 'rock'){
-                return 'you win!';
+                displayState('Won', 'Rock');
             } else if (computerSelection === 'paper') {
-                return 'its a draw';
+                displayState('Drew', 'Paper');
             } else {
-                return 'you lose..';
+                displayState('Lost', 'Scissors');
             };
+            break;
         case 'scissors':
             if (computerSelection === 'rock'){
-                return 'you lose..';
+                displayState('Lost', 'Rock');
             } else if (computerSelection === 'paper') {
-                return 'you win!';
+                displayState('Won', 'Paper');
             } else {
-                return 'its a draw';
+                displayState('Drew', 'Scissors');
             };
-        default:
-            return 'You Misspelled Your Choice..';
+            break;
     };
 };
 
-function game() {
-    let wins = 0;
-    let losses = 0;
+function displayState(state, move) {
+    computerMove.textContent = `Computer chose ${move}!`;
+    gameState.textContent = `You ${state}!`;
 
-    while (wins !== 5 && losses !== 5){
-        let computerChoice = getComputerChoice();
-        let playerChoice = prompt('Choose: Rock, Paper, or Scissors..');
-
-        console.log('Player: ' + playerChoice + '\n' + 'Computer: ' + computerChoice);
-        let round = playRound(playerChoice, computerChoice);
-        if (round === 'you win!') {
-            console.log('you win!');
-            ++wins;
-        } else if (round === 'you lose..') {
-            console.log('you lose..');
-            losses++;
-        } else if (round === 'its a draw') {
-            console.log('its a draw');
-        } else {
-            console.log('You Mispelled Your Choice..');
-        };
-    };
-
-    if (wins === 5){
-        console.log('You Beat The Computer!!');
+    if (state === 'Lost') {
+        losses.textContent = Number(losses.textContent) + 1;
+    } else if (state === 'Won') {
+        wins.textContent = Number(wins.textContent) + 1;
     } else {
-        console.log('You Lost To The Computer!!');
+        draws.textContent = Number(draws.textContent) + 1;
+    };
+
+    if (losses.textContent === '5'){
+        endGame('Lost!');
+    } else if (wins.textContent === '5'){
+        endGame('Win!');
     };
 };
 
-game();
+function endGame(condition) {
+    gameState.textContent = `Game over you ${condition}`;
+    playerOptions.forEach(btn => {
+        btn.style.display = 'none';
+    });
+    resetBtn.style.display = 'block';
+};
+
+function resetGame() {
+    resetBtn.style.display = 'none';
+
+    playerOptions.forEach(btn => {
+        btn.style.display = 'block';
+    });
+
+    wins.textContent = 0;
+    losses.textContent = 0;
+    draws.textContent = 0;
+
+    computerMove.textContent = '';
+    gameState.textContent = '';
+};
+resetBtn.addEventListener('click', resetGame);
+
+
+
